@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/static/css/main.ca8fe25d.css",
-    "main.js": "/static/js/main.eab26305.js",
-    "index.html": "/index.html",
-    "main.ca8fe25d.css.map": "/static/css/main.ca8fe25d.css.map",
-    "main.eab26305.js.map": "/static/js/main.eab26305.js.map"
+    "main.css": "/drinker-game/static/css/main.ca8fe25d.css",
+    "main.js": "/drinker-game/static/js/main.eab26305.js",
+    "index.html": "/drinker-game/index.html",
+    "main.ca8fe25d.css.map": "/drinker-game/static/css/main.ca8fe25d.css.map",
+    "main.eab26305.js.map": "/drinker-game/static/js/main.eab26305.js.map"
   },
   "entrypoints": [
     "static/css/main.ca8fe25d.css",
