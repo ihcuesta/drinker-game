@@ -1,7 +1,8 @@
-import { reject, equals, pickBy, values } from "ramda";
+import { reject, anyPass, isEmpty, isNil, pickBy, values } from "ramda";
 
 export const getLevelData = (drink) => {
-  const filteredDrink = reject(equals(null), drink);
+  let filteredDrink = reject(anyPass([isEmpty, isNil]), drink);
+  console.log(typeof filteredDrink);
   const isIngredient = (val, key) => key.includes("strIngredient");
   return {
     name: drink.strDrink,
