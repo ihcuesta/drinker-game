@@ -1,11 +1,18 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import Grades from "./Grades";
+import { numLevels } from "../../config";
 
 const GameGuide = () => {
-  const { elections, levels } = useSelector((state) => state.game);
+  const { elections, levels, currentLevel } = useSelector(
+    (state) => state.game
+  );
   return (
-    <div className="flex flex-col items-center justify-between fixed left-5">
+    <div
+      className={`flex flex-col items-center justify-between fixed left-5 ${
+        elections.length === numLevels ? "hidden" : ""
+      }`}
+    >
       {levels.map((e, i) => (
         <div
           key={i}

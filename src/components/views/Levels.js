@@ -10,10 +10,13 @@ import Chalkboard from "../../assets/chalkboard.jpg";
 import DrinkBg from "../../assets/drinkBg.png";
 import { FadeIn } from "animate-css-styled-components";
 import GameGuide from "../utilities/GameGuide";
+import TimeLine from "../utilities/TimeLine";
 
 const Levels = () => {
   const dispatch = useDispatch();
-  const { currentLevel, levels } = useSelector((state) => state.game);
+  const { currentLevel, levels, elections } = useSelector(
+    (state) => state.game
+  );
   const [level, setLevel] = useState({});
   const [election, setElection] = useState({});
   const [gameFinished, setGameFinished] = useState(false);
@@ -27,7 +30,7 @@ const Levels = () => {
   useEffect(() => {
     let myTimeout;
     if (countDown) {
-      myTimeout = setTimeout(handleTimeOut, 5000);
+      myTimeout = setTimeout(handleTimeOut, time);
     } else {
       clearTimeout(myTimeout);
     }
@@ -64,7 +67,7 @@ const Levels = () => {
 
   const handleTimeOut = () => {
     console.log("Se acabó el tiempo!");
-    dispatch(saveElection({ timeOut: true }));
+    dispatch(saveElection({ isTheCorrectOne: false }));
     handleLevelUp();
   };
 
@@ -82,7 +85,11 @@ const Levels = () => {
         style={{ backgroundImage: `url(${LevelsBg})` }}
       >
         <GameGuide />
-        <div className="flex flex-col items-center w-full justify-center">
+        <div
+          className={`flex flex-col items-center w-full justify-center ${
+            elections.length === numLevels && "blur-sm"
+          }`}
+        >
           <FadeIn duration="0.8s" className="w-full md:w-2/3 lg:w-1/2 xl:w-1/3">
             <h2 className="text-4xl font-bold text-mainBlue mb-6 text-center">
               Guess the <span className="text-mainPink">drink</span>
@@ -124,6 +131,7 @@ const Levels = () => {
           </div>
         </div>
       </div>
+      {elections.length !== numLevels && <TimeLine />}
     </>
   );
 };

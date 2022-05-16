@@ -1,4 +1,5 @@
 import { reject, anyPass, isEmpty, isNil, pickBy, values } from "ramda";
+import { numLevels } from "../config";
 
 export const getLevelData = (drink) => {
   let filteredDrink = reject(anyPass([isEmpty, isNil]), drink);
@@ -37,4 +38,30 @@ export const shuffle = (arr) => {
   }
 
   return arr;
+};
+
+export const getScore = (elections) => {
+  let score = [];
+  let counter = 0;
+  for (let i = 0; i < numLevels; i++) {
+    if (elections[i]?.isTheCorrectOne) {
+      score.unshift(true);
+      counter++;
+    } else {
+      score.push(false);
+    }
+  }
+  return {
+    score,
+    counter,
+  };
+};
+
+export const getMessage = (counter) => {
+  if (counter === 0) return "Surely you can do better";
+  if (counter === 1) return "At least one";
+  if (counter < numLevels / 2) return "Go improve it!";
+  if (counter === numLevels) return "You are the king of the bar!";
+  if (counter >= numLevels - 1) return "Such a great drinker!";
+  if (counter >= numLevels / 2) return "Not bad, drinker";
 };

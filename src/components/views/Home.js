@@ -4,6 +4,7 @@ import { getLevels } from "../../actions";
 import homeBg from "../../assets/homeBg2.jpg";
 import heroClaim from "../../assets/heroClaim.svg";
 import { FadeIn } from "animate-css-styled-components";
+import MainButton from "../utilities/MainButton";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -25,12 +26,7 @@ const Home = () => {
           </p>
         </FadeIn>
         <FadeIn duration="0.5s" delay="0.6s">
-          <button
-            className="animate-bounce shadow-lg shadow-mainPink/50 text-2xl font-extrabold uppercase text-mainPink py-4 px-16 mt-8 rounded-lg bg-mainBlue border-2 border-mainPink hover:bg-mainPink hover:text-mainBlue"
-            onClick={initGame}
-          >
-            PLAY
-          </button>
+          <MainButton text="PLAY" handleOnClick={initGame} />
         </FadeIn>
       </div>
     </div>
