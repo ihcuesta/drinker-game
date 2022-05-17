@@ -2,4 +2,4 @@
 // (maybe changeable if we include different levels of difficulty)
 export const numLevels = 5;
 export const numOptions = 3;
-export const time = 3000;
+export const time = 20000;

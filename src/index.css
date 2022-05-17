@@ -3,10 +3,26 @@
 @tailwind utilities;
 @import url("https://fonts.googleapis.com/css2?family=Caveat&family=Montserrat:wght@400;600;700;900&display=swap");
 
+@keyframes alert {
+  0% {
+    background-color: #ff2e63;
+  }
+  50% {
+    background-color: #08d9d6;
+  }
+  100% {
+    background-color: #ff2e63;
+  }
+}
+
 body {
   font-family: "Montserrat", sans-serif;
 }
 
 .caveat {
   font-family: "Caveat", cursive;
+}
+
+.alert {
+  animation: alert 0.5s infinite;
 }

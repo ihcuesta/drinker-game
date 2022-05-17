@@ -11,6 +11,7 @@ import DrinkBg from "../../assets/drinkBg.png";
 import { FadeIn } from "animate-css-styled-components";
 import GameGuide from "../utilities/GameGuide";
 import TimeLine from "../utilities/TimeLine";
+import Exit from "../utilities/Exit";
 
 const Levels = () => {
   const dispatch = useDispatch();
@@ -84,6 +85,7 @@ const Levels = () => {
         className="h-screen w-screen flex flex-col justify-center items-center p-6 sm:p-10 relative"
         style={{ backgroundImage: `url(${LevelsBg})` }}
       >
+        <Exit handleExit={handleResetStore} />
         <GameGuide />
         <div
           className={`flex flex-col items-center w-full justify-center ${
