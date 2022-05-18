@@ -29,31 +29,45 @@ const Home = () => {
         backgroundImage: `linear-gradient(#00000080, #00000080), url(${homeBg})`,
       }}
     >
-      <div className="w-full 2xl:w-2/3 flex justify-center items-center flex-col p-5 xl:p-16">
-        <FadeIn duration="0.5s">
-          <img src={heroClaim} alt="Drinker Game" />
-        </FadeIn>
-        <FadeIn duration="0.5s" delay="0.3s">
-          {thereIsRecord && <Record record={record} />}
-          {thereIsRecord ? (
-            <p className="text-mainBlue font-semibold text-lg mt-3 text-center">
-              {record < difficulty.numLevels
-                ? "That's all you can get?"
-                : "Can you repeat that score?"}
-            </p>
-          ) : (
-            <p className="text-mainBlue font-semibold text-lg mt-3 text-center">
-              Play and guess if you are{" "}
-              <span className="text-mainPink">a real drinker</span>!
-            </p>
-          )}
-        </FadeIn>
-        <FadeIn duration="0.5s" delay="0.6s">
-          <div className="flex flex-col w-[230px] items-center">
-            <MainButton text="PLAY" handleOnClick={initGame} />
-            <Difficulty />
-          </div>
-        </FadeIn>
+      <div className="w-full 2xl:w-2/3 flex justify-between items-center flex-col p-5 xl:px-16">
+        <div></div>
+        <div className="flex justify-between items-center flex-col">
+          <FadeIn duration="0.5s">
+            <img src={heroClaim} alt="Drinker Game" />
+          </FadeIn>
+          <FadeIn duration="0.5s" delay="0.3s">
+            {thereIsRecord && <Record record={record} />}
+            {thereIsRecord ? (
+              <p className="text-mainBlue font-semibold text-lg mt-3 text-center">
+                {record < difficulty.numLevels
+                  ? "That's all you can get?"
+                  : "Can you repeat that score?"}
+              </p>
+            ) : (
+              <p className="text-mainBlue font-semibold text-lg mt-3 text-center">
+                Play and guess if you are{" "}
+                <span className="text-mainPink">a real drinker</span>!
+              </p>
+            )}
+          </FadeIn>
+          <FadeIn duration="0.5s" delay="0.6s">
+            <div className="flex flex-col w-[230px] items-center">
+              <MainButton text="PLAY" handleOnClick={initGame} />
+              <Difficulty />
+            </div>
+          </FadeIn>
+        </div>
+        <div>
+          <p className="text-slate-500 text-sm">
+            Made with 🍹 by{" "}
+            <a
+              className="hover:text-mainPink"
+              href="https://www.linkedin.com/in/ivanherranzcuesta/"
+            >
+              Iván Herranz
+            </a>
+          </p>
+        </div>
       </div>
     </div>
   );
