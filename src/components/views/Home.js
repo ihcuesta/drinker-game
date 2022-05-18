@@ -62,6 +62,8 @@ const Home = () => {
             Made with 🍹 by{" "}
             <a
               className="hover:text-mainPink"
+              target="_blank"
+              rel="noreferrer"
               href="https://www.linkedin.com/in/ivanherranzcuesta/"
             >
               Iván Herranz
