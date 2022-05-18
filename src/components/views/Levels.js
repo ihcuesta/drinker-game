@@ -114,7 +114,7 @@ const Levels = () => {
               </ul>
             </div>
           </FadeIn>
-          <div className="flex flex-col lg:flex-row gap-5 lg:gap-24 mt-8 lg:mt-16 w-full md:w-2/3 lg:w-2/3 m-auto lg:max-w-3xl">
+          <div className="flex flex-col lg:flex-row lg:justify-between gap-5 lg:gap-24 mt-8 lg:mt-16 w-full md:w-2/3 lg:w-2/3 m-auto lg:max-w-3xl">
             {level?.options?.map((opt, i) => (
               <div
                 key={i}
