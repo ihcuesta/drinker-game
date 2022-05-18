@@ -2,13 +2,13 @@ import { call, takeLatest, fork, put } from "redux-saga/effects";
 import * as actions from "../actions";
 import { getCocktail } from "../api";
 import { getLevelData, getOption, shuffle } from "../utils";
-import { numLevels, numOptions } from "../config";
 
-function* getLevels() {
+function* getLevels(action) {
+  const difficulty = action.payload;
   try {
     const levels = [];
 
-    while (levels.length < numLevels) {
+    while (levels.length < difficulty.numLevels) {
       let options = [];
 
       // Get the correct option
@@ -17,7 +17,7 @@ function* getLevels() {
       options.push(getOption(data.drinks[0], true));
 
       // Get the wrong options
-      while (options.length < numOptions) {
+      while (options.length < difficulty.numOptions) {
         let optRepeated;
         do {
           const wrongDrinkFromAPI = yield call(getCocktail);

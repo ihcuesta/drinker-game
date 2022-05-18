@@ -1,48 +1,61 @@
 import { useState, useEffect } from "react";
-import { numLevels, time } from "../../config";
 import { useSelector } from "react-redux";
 import Chrono from "./Chrono";
+import Exit from "./Exit";
 
-const TimeLine = () => {
-  const [timeNum, setTimeNum] = useState(time / 1000);
+const TimeLine = ({ countDown, handleExit }) => {
+  const [timeNum, setTimeNum] = useState(0);
   const [percentage, setPercentage] = useState(100);
 
-  const { currentLevel, elections } = useSelector((state) => state.game);
+  const { currentLevel, elections, difficulty } = useSelector(
+    (state) => state.game
+  );
 
-  const portion = 100 / (time / 1000);
+  const portion = 100 / (difficulty.time / 1000);
   const alert = timeNum <= 5;
 
+  const controlCountDowns = currentLevel > 0 || countDown;
+
   useEffect(() => {
-    setTimeNum(time / 1000);
+    setTimeNum(difficulty.time / 1000);
     setPercentage(100);
-  }, [currentLevel]);
+  }, [currentLevel, difficulty]);
 
   useEffect(() => {
     let timing;
     timing = setInterval(() => {
       setTimeNum(timeNum - 1);
       setPercentage(percentage - portion);
-      console.log(percentage);
     }, 1000);
-    if (elections.length === numLevels) clearInterval(timing);
+    if (elections.length === difficulty.numLevels || !countDown)
+      clearInterval(timing);
     return () => clearInterval(timing);
-  }, [timeNum, elections]);
+  }, [timeNum, elections, countDown, percentage, portion, difficulty]);
+
+  useEffect(() => {
+    if (!controlCountDowns) setTimeNum(0);
+  }, [controlCountDowns]);
 
   return (
-    <div className="fixed bottom-0 right-0 text-2xl w-screen">
-      <div className="flex items-center justify-end px-6 py-4">
-        <Chrono
-          classname={`w-[20px] h-[20px] ${
-            alert ? "fill-mainPink" : "fill-mainBlue"
-          }`}
-        />
-        <p
-          className={`w-8 text-right font-semibold ${
-            alert ? "text-mainPink" : "text-mainBlue"
-          }`}
-        >
-          {timeNum}
-        </p>
+    <div className="pt-7 lg:fixed lg:bottom-0 lg:right-0 text-2xl w-screen">
+      <div className="flex items-center justify-between px-6 py-4">
+        <div className="md:invisible">
+          {currentLevel >= 1 && <Exit handleExit={handleExit} />}
+        </div>
+        <div className="flex items-center">
+          <Chrono
+            classname={`w-[20px] h-[20px] ${
+              alert ? "fill-mainPink" : "fill-mainBlue"
+            }`}
+          />
+          <p
+            className={`w-8 text-right font-semibold ${
+              alert ? "text-mainPink" : "text-mainBlue"
+            }`}
+          >
+            {timeNum}
+          </p>
+        </div>
       </div>
       <div className="flex justify-end">
         <div

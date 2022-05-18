@@ -5,7 +5,7 @@ import LevelsBg from "../../assets/levelsBg.jpg";
 const Loading = () => {
   return (
     <div
-      className="h-screen w-screen flex justify-center items-center"
+      className="h-screen w-screen flex justify-center items-center bg-no-repeat bg-cover"
       style={{ backgroundImage: `url(${LevelsBg})` }}
     >
       <img

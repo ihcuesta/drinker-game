@@ -50,6 +50,11 @@ function game(state = initialState, action) {
         levels: [],
         elections: [],
       };
+    case types.SAVE_DIFFICULTY:
+      return {
+        ...state,
+        difficulty: action.payload,
+      };
     default:
       return state;
   }

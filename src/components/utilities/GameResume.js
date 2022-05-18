@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import Grades from "./Grades";
 import MainButton from "./MainButton";
@@ -6,15 +6,25 @@ import Score from "./Score";
 import { getScore, getMessage } from "../../utils";
 
 const GameResume = ({ handleRestart, handleReset }) => {
-  const { elections } = useSelector((state) => state.game);
-  const scoreData = getScore(elections);
+  const { elections, difficulty } = useSelector((state) => state.game);
+  const scoreData = getScore(elections, difficulty.numLevels);
+  const record = localStorage.getItem("record");
+
+  useEffect(() => {
+    if (!record || record < scoreData.counter) {
+      localStorage.setItem("record", scoreData.counter);
+    }
+  }, [record, scoreData.counter]);
 
   return (
-    <div className="flex justify-center items-center h-screen w-screen fixed z-10 bg-black/50 p-20">
-      <div className="w-full h-full flex items-center justify-center flex-col shadow-mainBlue/50 shadow-lg border-2 border-mainBlue bg-black/80 p-20 rounded-xl">
-        <div className="flex justify-center w-2/3 mb-12">
+    <div className="flex justify-center items-center h-screen w-screen fixed z-10 bg-black/50 p-0 lg:p-20">
+      <div className="w-full h-full flex items-center justify-center flex-col shadow-mainBlue/50 shadow-lg border-2 border-mainBlue bg-black/80 p-5 rounded-xl">
+        <div className="flex justify-center w-full lg:w-2/3 mb-12">
           {elections.map((e, i) => (
-            <div key={i} className="w-[100px] h-[100px] p-3">
+            <div
+              key={i}
+              className="w-[65px] sm:w-[100px] h-[65px] sm:h-[100px] p-2 sm:p-3"
+            >
               <Grades election={e} />
             </div>
           ))}

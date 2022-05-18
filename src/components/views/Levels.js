@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { saveElection, levelUp, getLevels, resetStore } from "../../actions";
-import { numLevels, time } from "../../config";
 import Toast from "../utilities/Toast";
 import { isEmpty } from "ramda";
 import GameResume from "../utilities/GameResume";
@@ -15,7 +14,7 @@ import Exit from "../utilities/Exit";
 
 const Levels = () => {
   const dispatch = useDispatch();
-  const { currentLevel, levels, elections } = useSelector(
+  const { currentLevel, levels, elections, difficulty } = useSelector(
     (state) => state.game
   );
   const [level, setLevel] = useState({});
@@ -31,16 +30,16 @@ const Levels = () => {
   useEffect(() => {
     let myTimeout;
     if (countDown) {
-      myTimeout = setTimeout(handleTimeOut, time);
+      myTimeout = setTimeout(handleTimeOut, difficulty.time);
     } else {
       clearTimeout(myTimeout);
     }
     return () => clearTimeout(myTimeout);
-  }, [countDown, currentLevel]);
+  }, [countDown, currentLevel, difficulty]);
 
   const handleLevelUp = () => {
     setElection({});
-    if (currentLevel < numLevels) {
+    if (currentLevel < difficulty.numLevels) {
       dispatch(levelUp());
     } else {
       endGame();
@@ -51,7 +50,7 @@ const Levels = () => {
 
   const restartGame = () => {
     setGameFinished(false);
-    dispatch(getLevels());
+    dispatch(getLevels(difficulty));
   };
 
   const handleResetStore = () => {
@@ -82,14 +81,21 @@ const Levels = () => {
       )}
       {!isEmpty(election) && <Toast election={election} />}
       <div
-        className="h-screen w-screen flex flex-col justify-center items-center p-6 sm:p-10 relative"
+        className="min-h-screen w-screen flex flex-col justify-between lg:justify-center items-center pt-5 pb-0 px-5 lg:p-6 relative bg-no-repeat bg-cover"
         style={{ backgroundImage: `url(${LevelsBg})` }}
       >
-        <Exit handleExit={handleResetStore} />
-        <GameGuide />
+        <div className="flex w-full items-center px-5 pb-6">
+          <div className="w-1/3"></div>
+          <div className="w-1/3 flex justify-center">
+            <GameGuide />
+          </div>
+          <div className="w-1/3 hidden md:flex justify-end">
+            {currentLevel >= 1 && <Exit handleExit={handleResetStore} />}
+          </div>
+        </div>
         <div
           className={`flex flex-col items-center w-full justify-center ${
-            elections.length === numLevels && "blur-sm"
+            elections.length === difficulty.numLevels && "blur-sm"
           }`}
         >
           <FadeIn duration="0.8s" className="w-full md:w-2/3 lg:w-1/2 xl:w-1/3">
@@ -108,15 +114,15 @@ const Levels = () => {
               </ul>
             </div>
           </FadeIn>
-          <div className="flex gap-24 mt-16 max-w-3xl m-auto">
+          <div className="flex flex-col lg:flex-row gap-5 lg:gap-24 mt-8 lg:mt-16 w-full md:w-2/3 lg:w-2/3 m-auto lg:max-w-3xl">
             {level?.options?.map((opt, i) => (
               <div
                 key={i}
-                className="w-1/3 cursor-pointer flex justify-center flex-col hover:scale-105 transition-transform"
+                className="p-2 gap-3 lg:gap-0 lg:p-0 rounded-l-full lg:rounded-none bg-black/50 lg:bg-transparent border-mainBlue border-2 lg:border-none shadow-mainBlue/50 shadow-lg lg:shadow-none w-full lg:w-1/3 cursor-pointer flex items-center lg:justify-center lg:flex-col hover:scale-105 transition-transform"
                 onClick={() => handleSelectOption(opt)}
               >
                 <div
-                  className="p-5 bg-contain bg-no-repeat"
+                  className="w-[50px] lg:w-full lg:p-5 bg-contain bg-no-repeat"
                   style={{ backgroundImage: `url(${DrinkBg})` }}
                 >
                   <img
@@ -125,15 +131,17 @@ const Levels = () => {
                     className="rounded-full"
                   />
                 </div>
-                <p className="mt-8 uppercase text-mainPink font-bold text-center">
+                <p className="lg:mt-8 uppercase text-mainPink font-bold lg:text-center">
                   {opt.name}
                 </p>
               </div>
             ))}
           </div>
         </div>
+        {elections.length !== difficulty.numLevels && (
+          <TimeLine countDown={countDown} handleExit={handleResetStore} />
+        )}
       </div>
-      {elections.length !== numLevels && <TimeLine />}
     </>
   );
 };

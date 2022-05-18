@@ -6,10 +6,13 @@ export const types = {
   SAVE_ELECTION: "save_election",
   LEVEL_UP: "level_up",
   RESET_STORE: "reset_store",
+
+  SAVE_DIFFICULTY: "save_difficulty",
 };
 
-export const getLevels = () => ({
+export const getLevels = (difficulty) => ({
   type: types.GET_LEVELS,
+  payload: difficulty,
 });
 
 export const getLevelsSuccess = (drinks) => ({
@@ -33,4 +36,9 @@ export const levelUp = () => ({
 
 export const resetStore = () => ({
   type: types.RESET_STORE,
+});
+
+export const saveDifficulty = (difficulty) => ({
+  type: types.SAVE_DIFFICULTY,
+  payload: difficulty,
 });
