@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/drinker-game/static/css/main.5bc63fe3.css",
-    "main.js": "/drinker-game/static/js/main.4ab41add.js",
+    "main.css": "/drinker-game/static/css/main.b80de0e7.css",
+    "main.js": "/drinker-game/static/js/main.f23044ed.js",
     "static/media/homeBg2.jpg": "/drinker-game/static/media/homeBg2.f45a219bb38a1ee6bdec.jpg",
     "static/media/chalkboard.jpg": "/drinker-game/static/media/chalkboard.4a98a5d4fb1a6a263630.jpg",
     "static/media/levelsBg.jpg": "/drinker-game/static/media/levelsBg.027b0698afbdc8bb98de.jpg",
@@ -11,11 +11,11 @@
     "index.html": "/drinker-game/index.html",
     "static/media/check.svg": "/drinker-game/static/media/check.88c822cd76f921960307ab95e5474e82.svg",
     "static/media/close.svg": "/drinker-game/static/media/close.5b2166c4812f0f3bf2bdbbdfa01a1197.svg",
-    "main.5bc63fe3.css.map": "/drinker-game/static/css/main.5bc63fe3.css.map",
-    "main.4ab41add.js.map": "/drinker-game/static/js/main.4ab41add.js.map"
+    "main.b80de0e7.css.map": "/drinker-game/static/css/main.b80de0e7.css.map",
+    "main.f23044ed.js.map": "/drinker-game/static/js/main.f23044ed.js.map"
   },
   "entrypoints": [
-    "static/css/main.5bc63fe3.css",
-    "static/js/main.4ab41add.js"
+    "static/css/main.b80de0e7.css",
+    "static/js/main.f23044ed.js"
   ]
 }
