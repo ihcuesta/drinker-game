@@ -2,6 +2,7 @@ import React from 'react'
 import VideoMobile from '../../assets/video-mobile.mp4'
 import VideoDesktop from '../../assets/video-desktop.mp4'
 import MainButton from './MainButton'
+import CancelButton from './CancelButton'
 
 const HowToPlay = ({ handlePlay, handleCancel }) => {
   return (
@@ -39,12 +40,7 @@ const HowToPlay = ({ handlePlay, handleCancel }) => {
           </video>
           <div className="flex flex-col items-center mt-5">
             <MainButton text="READY" handleOnClick={handlePlay} />
-            <button
-              onClick={handleCancel}
-              className="text-mainBlue mt-5 hover:font-semibold"
-            >
-              Back
-            </button>
+            <CancelButton text="Back" handleCancel={handleCancel} />
           </div>
         </div>
       </div>

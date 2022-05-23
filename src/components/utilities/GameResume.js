@@ -1,20 +1,21 @@
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import Grades from "./Grades";
-import MainButton from "./MainButton";
-import Score from "./Score";
-import { getScore, getMessage } from "../../utils";
+import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import Grades from './Grades'
+import MainButton from './MainButton'
+import CancelButton from './CancelButton'
+import Score from './Score'
+import { getScore, getMessage } from '../../utils'
 
 const GameResume = ({ handleRestart, handleReset }) => {
-  const { elections, difficulty } = useSelector((state) => state.game);
-  const scoreData = getScore(elections, difficulty.numLevels);
-  const record = localStorage.getItem("record");
+  const { elections, difficulty } = useSelector((state) => state.game)
+  const scoreData = getScore(elections, difficulty.numLevels)
+  const record = localStorage.getItem('record')
 
   useEffect(() => {
     if (!record || record < scoreData.counter) {
-      localStorage.setItem("record", scoreData.counter);
+      localStorage.setItem('record', scoreData.counter)
     }
-  }, [record, scoreData.counter]);
+  }, [record, scoreData.counter])
 
   return (
     <div className="flex justify-center items-center h-screen w-screen fixed z-10 bg-black/50 p-0 lg:p-20">
@@ -35,7 +36,7 @@ const GameResume = ({ handleRestart, handleReset }) => {
             <Score
               key={i}
               classname={`w-[40px] fill-mainBlue ${
-                score ? "fill-mainBlue" : "fill-slate-500/20"
+                score ? 'fill-mainBlue' : 'fill-slate-500/20'
               }`}
             />
           ))}
@@ -44,15 +45,10 @@ const GameResume = ({ handleRestart, handleReset }) => {
           {getMessage(scoreData.counter)}
         </h3>
         <MainButton text="PLAY AGAIN" handleOnClick={handleRestart} />
-        <button
-          onClick={handleReset}
-          className="text-mainBlue mt-5 hover:font-semibold"
-        >
-          Go Home
-        </button>
+        <CancelButton text="Go Home" handleCancel={handleReset} />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default GameResume;
+export default GameResume

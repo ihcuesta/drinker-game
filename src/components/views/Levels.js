@@ -1,78 +1,87 @@
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { saveElection, levelUp, getLevels, resetStore } from "../../actions";
-import Toast from "../utilities/Toast";
-import { isEmpty } from "ramda";
-import GameResume from "../utilities/GameResume";
-import LevelsBg from "../../assets/levelsBg.jpg";
-import Chalkboard from "../../assets/chalkboard.jpg";
-import DrinkBg from "../../assets/drinkBg.png";
-import { FadeIn } from "animate-css-styled-components";
-import GameGuide from "../utilities/GameGuide";
-import TimeLine from "../utilities/TimeLine";
-import Exit from "../utilities/Exit";
+import { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { saveElection, levelUp, getLevels, resetStore } from '../../actions'
+import Toast from '../utilities/Toast'
+import { isEmpty } from 'ramda'
+import GameResume from '../utilities/GameResume'
+import LevelsBg from '../../assets/levelsBg.jpg'
+import Chalkboard from '../../assets/chalkboard.jpg'
+import DrinkBg from '../../assets/drinkBg.png'
+import { FadeIn } from 'animate-css-styled-components'
+import GameGuide from '../utilities/GameGuide'
+import TimeLine from '../utilities/TimeLine'
+import Exit from '../utilities/Exit'
+import ErrorMsg from '../utilities/ErrorMsg'
 
 const Levels = () => {
-  const dispatch = useDispatch();
-  const { currentLevel, levels, elections, difficulty } = useSelector(
+  const dispatch = useDispatch()
+  const { currentLevel, levels, elections, difficulty, error } = useSelector(
     (state) => state.game
-  );
-  const [level, setLevel] = useState({});
-  const [election, setElection] = useState({});
-  const [gameFinished, setGameFinished] = useState(false);
-  const [countDown, setCountDown] = useState(false);
+  )
+  const [level, setLevel] = useState({})
+  const [election, setElection] = useState({})
+  const [gameFinished, setGameFinished] = useState(false)
+  const [countDown, setCountDown] = useState(false)
+  const [showError, setShowError] = useState(false)
 
   useEffect(() => {
-    setLevel(levels[currentLevel - 1]);
-    setCountDown(true);
-  }, [currentLevel]);
+    setLevel(levels[currentLevel - 1])
+    setCountDown(true)
+  }, [currentLevel])
 
   useEffect(() => {
-    let myTimeout;
+    let myTimeout
     if (countDown) {
-      myTimeout = setTimeout(handleTimeOut, difficulty.time);
+      myTimeout = setTimeout(handleTimeOut, difficulty.time)
     } else {
-      clearTimeout(myTimeout);
+      clearTimeout(myTimeout)
     }
-    return () => clearTimeout(myTimeout);
-  }, [countDown, currentLevel, difficulty]);
+    return () => clearTimeout(myTimeout)
+  }, [countDown, currentLevel, difficulty])
 
   const handleLevelUp = () => {
-    setElection({});
+    setElection({})
     if (currentLevel < difficulty.numLevels) {
-      dispatch(levelUp());
+      dispatch(levelUp())
     } else {
-      endGame();
+      endGame()
     }
-  };
+  }
 
-  const endGame = () => setGameFinished(true);
+  useEffect(() => {
+    setShowError(error)
+  }, [error])
+
+  const endGame = () => setGameFinished(true)
 
   const restartGame = () => {
-    setGameFinished(false);
-    dispatch(getLevels(difficulty));
-  };
+    setGameFinished(false)
+    dispatch(getLevels(difficulty))
+  }
 
   const handleResetStore = () => {
-    setGameFinished(false);
-    dispatch(resetStore());
-  };
+    setGameFinished(false)
+    dispatch(resetStore())
+  }
 
   const handleSelectOption = (option) => {
-    setCountDown(false);
-    dispatch(saveElection(option));
-    setElection(option);
-    setTimeout(handleLevelUp, 2000);
-  };
+    setCountDown(false)
+    dispatch(saveElection(option))
+    setElection(option)
+    setTimeout(handleLevelUp, 2000)
+  }
 
   const handleTimeOut = () => {
-    console.log("Se acabó el tiempo!");
-    dispatch(saveElection({ isTheCorrectOne: false }));
-    handleLevelUp();
-  };
+    console.log('Se acabó el tiempo!')
+    dispatch(saveElection({ isTheCorrectOne: false }))
+    handleLevelUp()
+  }
 
   return (
     <>
+      {showError && (
+        <ErrorMsg handleRetry={restartGame} handleCancel={handleResetStore} />
+      )}
       {gameFinished && (
         <GameResume
           handleRestart={restartGame}
@@ -95,7 +104,7 @@ const Levels = () => {
         </div>
         <div
           className={`flex flex-col items-center w-full justify-center ${
-            elections.length === difficulty.numLevels && "blur-sm"
+            elections.length === difficulty.numLevels && 'blur-sm'
           }`}
         >
           <FadeIn duration="0.8s" className="w-full md:w-2/3 lg:w-1/2 xl:w-1/3">
@@ -143,7 +152,7 @@ const Levels = () => {
         )}
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Levels;
+export default Levels

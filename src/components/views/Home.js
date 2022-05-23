@@ -8,29 +8,46 @@ import MainButton from '../utilities/MainButton'
 import Record from '../utilities/Record'
 import Difficulty from '../utilities/Difficulty'
 import HowToPlay from '../utilities/HowToPlay'
+import ErrorMsg from '../utilities/ErrorMsg'
 
 const Home = () => {
   const dispatch = useDispatch()
 
-  const { difficulty } = useSelector((state) => state.game)
+  const { difficulty, error } = useSelector((state) => state.game)
 
   const initGame = () => dispatch(getLevels(difficulty))
   const [thereIsRecord, setThereIsRecord] = useState(false)
   const [howToPlay, setHowToPlay] = useState(false)
+  const [showError, setShowError] = useState(false)
 
   const record = localStorage.getItem('record')
 
   const handlePlay = () => (record ? initGame() : setHowToPlay(true))
 
+  const handlePlayFromTutorial = () => {
+    initGame()
+    setHowToPlay(false)
+  }
+
   useEffect(() => {
     if (record) setThereIsRecord(true)
   }, [record])
 
+  useEffect(() => {
+    setShowError(error)
+  }, [error])
+
   return (
     <>
+      {showError && (
+        <ErrorMsg
+          handleRetry={initGame}
+          handleCancel={() => setShowError(false)}
+        />
+      )}
       {howToPlay && (
         <HowToPlay
-          handlePlay={initGame}
+          handlePlay={handlePlayFromTutorial}
           handleCancel={() => setHowToPlay(false)}
         />
       )}
