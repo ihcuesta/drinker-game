@@ -56,7 +56,7 @@ const Home = () => {
                 </p>
               ) : (
                 <p className="text-mainBlue font-semibold text-lg mt-3 text-center">
-                  Play and guess if you are{' '}
+                  Hit play and discover if you are<br></br>
                   <span className="text-mainPink">a real drinker</span>!
                 </p>
               )}
