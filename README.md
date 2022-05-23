@@ -4,9 +4,13 @@
 
 **Drinker Game** is a web application that uses [TheCocktailDB](https://www.thecocktaildb.com/) to create a game based in several levels (it depends on the difficulty chosen) with a simple rule: just choose the correct cocktail according with the ingredients displayed.
 
-https://github.com/ihcuesta/drinker-game/blob/main/src/assets/video-desktop.mp4
 
-You can play the game clicking **[here]**(https://ihcuesta.github.io/drinker-game/).
+
+https://user-images.githubusercontent.com/12890745/169722301-8531ba26-a435-438c-a08a-a5fdcd52e7f3.mp4
+
+
+
+You can play the game visiting [https://ihcuesta.github.io/drinker-game/](https://ihcuesta.github.io/drinker-game/).
 
 ## Technologies
 
