@@ -10,7 +10,7 @@ https://user-images.githubusercontent.com/12890745/169722301-8531ba26-a435-438c-
 
 
 
-You can play the game visiting [[here](https://ihcuesta.github.io/drinker-game/)](https://ihcuesta.github.io/drinker-game/).
+You can play the game visiting [https://ihcuesta.github.io/drinker-game/](https://ihcuesta.github.io/drinker-game/).
 
 ## Technologies
 
